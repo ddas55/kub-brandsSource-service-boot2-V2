@@ -1,0 +1,101 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: dp-brandssource-v2
+  namespace: default
+  labels:
+    app: brandssource
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: brandssource
+        version: brandssource-version-2
+    spec:
+      containers:
+      - name: brandssource-version-1
+        image: ddas55/kub-brandssource-service-v2
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8070
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        volumeMounts:
+        - name: vm-kub-brandssource-appprops
+          mountPath: "/config/" 
+          readOnly: true
+        volumeMounts:
+        - name: vm-kub-brandssource-bootstrap
+          mountPath: "/config/bootstrap" 
+          readOnly: true
+        volumeMounts:
+        - name: vm-kub-brandssource-apppropsprod
+          mountPath: "/config/prod" 
+          readOnly: true
+        livenessProbe:
+          httpGet:
+            path: /svcbrands/brands/healthz
+            port: 8070
+            httpHeaders:
+             - name: X-Custom-Header
+               value: Awesome
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          failureThreshold: 5
+        readinessProbe:
+          httpGet:
+            path: /svcbrands/brands/rediness
+            port: 8070
+            httpHeaders:
+             - name: X-Custom-Header
+               value: Awesome
+          initialDelaySeconds: 5
+        env:
+          - name: MONGO_HOST
+            valueFrom:
+              secretKeyRef:
+                name: scrt-mongodb-access
+                key: mongodb.host
+          - name: MONGO_PORT
+            valueFrom:
+              secretKeyRef:
+                name: scrt-mongodb-access
+                key: mongodb.port
+          - name: MONGO_USER
+            valueFrom:
+              secretKeyRef:
+                name: scrt-mongodb-access
+                key: mongodb.username
+          - name: MONGO_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: scrt-mongodb-access
+                key: mongodb.password
+          - name: MONGO_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: scrt-mongodb-access
+                key: mongodb.database
+      volumes:
+      - name: vm-kub-brandssource-appprops
+        configMap:
+          name: cm-kub-brandssource-app
+          items:
+          - key: application.properties 
+            path: application.properties
+      - name: vm-kub-brandssource-bootstrap
+        configMap:
+          name: cm-kub-brandssource-bootstrap
+          items:
+          - key: bootstrap.properties 
+            path: bootstrap.properties
+      - name: vm-kub-brandssource-apppropsprod
+        configMap:
+          name: cm-kub-brandssource-apppropsprod
+          items:
+          - key: application-prod.properties 
+            path: application-prod.properties   

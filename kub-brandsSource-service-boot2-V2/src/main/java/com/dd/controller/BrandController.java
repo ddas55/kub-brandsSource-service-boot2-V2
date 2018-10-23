@@ -173,11 +173,12 @@ public class BrandController {
     	return sb.toString();
     }
     private AppStatusInfo getAppStatus() {
+    	/*
     	try {
 			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
 		hit++;
 		SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
     	String tm=ft.format(System.currentTimeMillis());

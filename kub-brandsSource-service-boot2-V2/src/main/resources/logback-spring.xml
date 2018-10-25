@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<!-- ******* Send logs to Console and File ******* -->
+    <property name="LOGS" value="./logs" />
+    <springProperty scope="context" name="LOG_FILE" source="spring.application.name"/>
+	<appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+			</Pattern>
+		</layout>
+	</appender>
+	<springProfile name="dev, test , staging">
+	    <appender name="RollingFile"
+	        class="ch.qos.logback.core.rolling.RollingFileAppender">
+	        <file>${LOG_FILE}.log</file>
+	        <encoder
+	            class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+	            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+	        </encoder>
+	 
+	        <rollingPolicy
+	            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	            <!-- rollover daily and when the file reaches 10 MegaBytes -->
+	            <fileNamePattern>/archived/${LOG_FILE}-%d{yyyy-MM-dd}.%i.log
+	            </fileNamePattern>
+	            <timeBasedFileNamingAndTriggeringPolicy
+	                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+	                <maxFileSize>10MB</maxFileSize>
+	            </timeBasedFileNamingAndTriggeringPolicy>
+	        </rollingPolicy>
+	    </appender>
+	    <!-- LOG "com.dd*" at INFO level -->
+	    <logger name="com.dd" level="trace" additivity="false">
+	        <appender-ref ref="RollingFile" />
+	        <appender-ref ref="Console" />
+	    </logger>
+     </springProfile>
+     
+     <springProfile name="prod">
+	    <appender name="RollingFile"
+	        class="ch.qos.logback.core.rolling.RollingFileAppender">
+	        <file>${LOG_FILE}.log</file>
+	        <encoder
+	            class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+	            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+	        </encoder>
+	 
+	        <rollingPolicy
+	            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	            <!-- rollover daily and when the file reaches 10 MegaBytes -->
+	            <fileNamePattern>/archived/${LOG_FILE}-%d{yyyy-MM-dd}.%i.log
+	            </fileNamePattern>
+	            <timeBasedFileNamingAndTriggeringPolicy
+	                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+	                <maxFileSize>10MB</maxFileSize>
+	            </timeBasedFileNamingAndTriggeringPolicy>
+	        </rollingPolicy>
+	    </appender>
+	    <!-- LOG "com.dd*" at INFO level -->
+	    <logger name="com.dd" level="info" additivity="false">
+	        <appender-ref ref="RollingFile" />
+	        <appender-ref ref="Console" />
+	    </logger>
+    </springProfile>
+     
+     
+    <!-- LOG everything at INFO level -->
+    <root level="error">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+    </root>
+ 
+
+ 
+</configuration>

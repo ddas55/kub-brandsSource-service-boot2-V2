@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,6 @@ import com.dd.data.Brand;
 @RequestMapping("/brands")
 @CrossOrigin
 public class BrandController {
-
-
 	private static final Logger logger = LoggerFactory.getLogger(BrandController.class);
 	
 	private static int hit=0;
@@ -53,6 +53,7 @@ public class BrandController {
 	public String rediness() {
 		return String.valueOf(System.currentTimeMillis());
 	}
+	
 	@RequestMapping(path="/appinforaw" , method= RequestMethod.GET)
     public String appinforaw() {
     	AppStatusInfo asi =getAppStatus();

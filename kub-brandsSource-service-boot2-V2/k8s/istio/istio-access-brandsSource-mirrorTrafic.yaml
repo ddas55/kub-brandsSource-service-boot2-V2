@@ -1,0 +1,71 @@
+---
+#A Gateway configures a load balancer for HTTP/TCP traffic, 
+#most commonly operating at the edge of the mesh to enable ingress traffic for an application.
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: brandsource-mirrortraffic-gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+#A VirtualService defines the rules that control how requests for a service are routed within an Istio service mesh.
+#attempts: 2 - number of attempts possible within the default or overridden timeout period (10s)
+
+#brandssource version-1 takes the live traffic and brandssource v2 will be the new deployment. 
+#You can use Istio to mirror traffic that goes to version-1 into the version-2 cluster.
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: brandsource-mirrortraffic-vservice
+spec:
+  hosts:
+    - "*"
+  gateways:
+  - brandsource-mirrortraffic-gateway
+  http:
+  - route:
+    - destination:
+        host: brandssource
+        subset: version-1
+      weight: 100
+    timeout: 10s
+    retries:
+        attempts: 2
+        perTryTimeout: 5s
+    mirror:
+      host: brandssource
+      subset: version-1
+
+---
+#A DestinationRule configures the set of policies to be applied to a request after VirtualService routing has occurred.
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: ds-mirrortraffic
+spec:
+  host: brandssource
+  trafficPolicy:
+    loadBalancer:
+      simple: RANDOM
+  subsets:
+  - name: version-1
+    labels:
+      version: brandssource-version-1
+  - name: version-2
+    labels:
+      version: brandssource-version-2
+    
+    
+    
+
+
+      

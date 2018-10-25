@@ -7,10 +7,10 @@ import org.springframework.web.client.RestTemplate;
 
 import brave.sampler.Sampler;
 
-//import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @SpringBootApplication
-//@EnableResourceServer//tells Spring Cloud and Spring Security that the service is a protected resource.
+@EnableResourceServer//tells Spring Cloud and Spring Security that the service is a protected resource.
 public class BrandProducerApplication{
 			  
 	//Main Apps

@@ -13,7 +13,7 @@ import com.dd.BrandProducerApplication;
 
 
 @SpringBootTest(classes = BrandProducerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("INTEGRATION_TEST")
+@ActiveProfiles("dev")
 @ContextConfiguration
 public class CucumberRoot {
 

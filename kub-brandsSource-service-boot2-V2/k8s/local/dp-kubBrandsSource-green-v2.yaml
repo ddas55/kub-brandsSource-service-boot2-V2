@@ -36,6 +36,10 @@ spec:
         - name: vm-kub-brandssource-apppropsprod
           mountPath: "/config/prod" 
           readOnly: true
+        volumeMounts:
+        - name: vm-kub-brandssource-apppropsdev
+          mountPath: "/config/dev" 
+          readOnly: true
         livenessProbe:
           httpGet:
             path: /svcbrands/brands/healthz
@@ -98,4 +102,10 @@ spec:
           name: cm-kub-brandssource-apppropsprod
           items:
           - key: application-prod.properties 
-            path: application-prod.properties   
+            path: application-prod.properties
+      - name: vm-kub-brandssource-apppropsdev
+        configMap:
+          name: cm-kub-brandssource-apppropsdev
+          items:
+          - key: application-dev.properties 
+            path: application-dev.properties      

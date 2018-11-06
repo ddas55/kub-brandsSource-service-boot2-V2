@@ -7,7 +7,7 @@ metadata:
 spec:
   selector:
     app: kub-brandssource-service
-    version: "1.1"
+    version: brandssource-version-2
   type: NodePort
   ports:
   - name: http

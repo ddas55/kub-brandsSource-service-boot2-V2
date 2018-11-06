@@ -41,7 +41,7 @@ public class ApplicationE2E{
     
     @Test
     public void test_is_server_up() {
-        assertTrue(restTemplate.getForEntity(baseURL + "brands/allbrands", String.class).getStatusCode().is2xxSuccessful());
+        assertTrue(restTemplate.getForEntity(baseURL + "brands/appinforaw", String.class).getStatusCode().is2xxSuccessful());
     }
 
 

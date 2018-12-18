@@ -49,6 +49,11 @@ public class BrandController {
 	    return String.valueOf(System.currentTimeMillis());
 	}
 	
+	@RequestMapping("/")
+	public String healthy() {
+	    return String.valueOf(System.currentTimeMillis());
+	}
+	
 	@RequestMapping("/rediness")
 	public String rediness() {
 		return String.valueOf(System.currentTimeMillis());

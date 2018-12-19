@@ -2,18 +2,24 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: ing-brandssource
+  annotations:
+     kubernetes.io/ingress.class: "gce"
+     ingress.kubernetes.io/rewrite-target: /
 spec:
+  backend:
+    serviceName: svc-kub-brandssource-service
+    servicePort: 8070
   rules:
-    - http:
-        paths:
-          - path: /svcbrands
-            backend:
-              serviceName: svc-kub-brandssource-service
-              servicePort: 8070
-#          - path: /echoserver
-#            backend:
-#              serviceName: echoserver-svc  
-#              servicePort: 8080
+  - http:
+      paths:
+      - path: /svcbrands
+        backend:
+          serviceName: svc-kub-brandssource-service
+          servicePort: 8070
+      - path: /svcbrands/*
+        backend:
+          serviceName: svc-kub-brandssource-service
+          servicePort: 8070
 
 
 #use annotation rewrite-target to guarantee that traffic redirection starts from root, /.

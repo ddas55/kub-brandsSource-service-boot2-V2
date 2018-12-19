@@ -40,9 +40,6 @@ spec:
           httpGet:
             path: /svcbrands/healthz
             port: 8070
-            httpHeaders:
-             - name: X-Custom-Header
-               value: Awesome
           initialDelaySeconds: 30
           periodSeconds: 15
           failureThreshold: 5
@@ -50,9 +47,6 @@ spec:
           httpGet:
             path: /svcbrands/rediness
             port: 8070
-            httpHeaders:
-             - name: X-Custom-Header
-               value: Awesome
           initialDelaySeconds: 5
         env:
           - name: MONGO_HOST

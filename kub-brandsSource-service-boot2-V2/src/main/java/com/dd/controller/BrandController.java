@@ -44,20 +44,6 @@ public class BrandController {
 	@Autowired
 	private ConfigDAO dao;
 
-	@RequestMapping("/healthz")
-	public String healthz() {
-	    return String.valueOf(System.currentTimeMillis());
-	}
-	
-	@RequestMapping("/")
-	public String healthy() {
-	    return String.valueOf(System.currentTimeMillis());
-	}
-	
-	@RequestMapping("/rediness")
-	public String rediness() {
-		return String.valueOf(System.currentTimeMillis());
-	}
 	
 	@RequestMapping(path="/appinforaw" , method= RequestMethod.GET)
     public String appinforaw() {

@@ -35,5 +35,17 @@ public class BaseController {
 	public String healthy() {
 	    return String.valueOf(System.currentTimeMillis());
 	}
+	
+	@RequestMapping("/healthz")
+	public String healthz() {
+	    return String.valueOf(System.currentTimeMillis());
+	}
+	
+	@RequestMapping("/rediness")
+	public String rediness() {
+		return String.valueOf(System.currentTimeMillis());
+	}
+	
+	
 
 }

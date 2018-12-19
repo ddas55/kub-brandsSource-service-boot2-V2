@@ -38,14 +38,14 @@ spec:
           readOnly: true
         livenessProbe:
           httpGet:
-            path: /**/healthz
+            path: /svcbrands/healthz
             port: 8070
           initialDelaySeconds: 30
           periodSeconds: 15
           failureThreshold: 5
         readinessProbe:
           httpGet:
-            path: /**/rediness
+            path: /svcbrands/rediness
             port: 8070
           initialDelaySeconds: 5
         env:

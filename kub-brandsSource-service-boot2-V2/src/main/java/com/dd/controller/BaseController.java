@@ -27,6 +27,7 @@ import com.dd.data.AppStatusInfo;
 import com.dd.data.Brand;
 
 @RestController
+@RequestMapping("/base")
 @CrossOrigin
 public class BaseController {
 	private static final Logger logger = LoggerFactory.getLogger(BaseController.class);

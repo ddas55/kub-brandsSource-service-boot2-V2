@@ -20,6 +20,13 @@ spec:
         backend:
           serviceName: svc-kub-brandssource-service
           servicePort: 8070
-
+      - path: /svcbrands/healthz
+        backend:
+          serviceName: svc-kub-brandssource-service
+          servicePort: 8070
+      - path: /svcbrands/rediness
+        backend:
+          serviceName: svc-kub-brandssource-service
+          servicePort: 8070
 
 #use annotation rewrite-target to guarantee that traffic redirection starts from root, /.

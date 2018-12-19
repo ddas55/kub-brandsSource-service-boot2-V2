@@ -38,7 +38,7 @@ spec:
           readOnly: true
         livenessProbe:
           httpGet:
-            path: /svcbrands/brands/healthz
+            path: /svcbrands/healthz
             port: 8070
             httpHeaders:
              - name: X-Custom-Header
@@ -48,7 +48,7 @@ spec:
           failureThreshold: 5
         readinessProbe:
           httpGet:
-            path: /svcbrands/brands/rediness
+            path: /svcbrands/rediness
             port: 8070
             httpHeaders:
              - name: X-Custom-Header

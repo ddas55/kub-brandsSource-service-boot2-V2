@@ -59,6 +59,8 @@ spec:
                value: Awesome
           initialDelaySeconds: 5
         env:
+          - name: JAVA_OPTIONS
+            value: -Xms128m -Xmx256m
           - name: MONGO_HOST
             valueFrom:
               secretKeyRef:

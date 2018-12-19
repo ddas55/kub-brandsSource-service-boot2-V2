@@ -48,11 +48,7 @@ spec:
           failureThreshold: 5
         readinessProbe:
           tcpSocket:
-#            path: /svcbrands/base/rediness
             port: 8070
-#            httpHeaders:
-#             - name: X-Custom-Header
-#               value: Awesome
           initialDelaySeconds: 5
         env:
           - name: MONGO_HOST

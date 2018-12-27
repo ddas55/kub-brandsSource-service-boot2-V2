@@ -94,4 +94,4 @@ spec:
           name: cm-kub-brandssource-apppropsprod
           items:
           - key: application-prod.properties 
-            path: application-prod.properties   
+            path: application-prod.properties 

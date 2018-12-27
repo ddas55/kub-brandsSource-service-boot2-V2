@@ -47,7 +47,8 @@ spec:
           periodSeconds: 15
           failureThreshold: 5
         readinessProbe:
-          tcpSocket:
+          httpGet:
+            path: /svcbrands/base/rediness
             port: 8070
           initialDelaySeconds: 5
         env:
